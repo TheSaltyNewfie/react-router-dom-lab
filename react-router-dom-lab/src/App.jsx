@@ -1,22 +1,26 @@
-import { Route, Routes } from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import MailboxList from './components/MailboxList'
 import MailboxForm from './components/MailboxForm'
 import MailboxDetails from './components/MailboxDetails'
 import NavBar from './components/NavBar'
 
 const App = () => {
-  return (
-    <div>
-      <NavBar />
+  const [mailboxes, setMailboxes] = React.useState([])
 
-      <Routes>
-        <Route path="/" element={<main><h1>Post Office</h1></main>} />
-        <Route path="/mailboxes" element={<MailboxList/>} />
-        <Route path="/new-mailbox" element={<MailboxForm />} />
-        <Route path="/mailboxes/:mailboxId" element={<MailboxDetails />} />
-      </Routes>
-    </div>
-    )
+  return (
+    <Router>
+      <div>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<main><h1>Post Office</h1></main>} />
+          <Route path="/mailboxes" element={<MailboxList mailboxes={mailboxes} />} />
+          <Route path="/new-mailbox" element={<MailboxForm mailboxes={mailboxes} setMailboxes={setMailboxes} />} />
+          <Route path="/mailboxes/:mailboxId" element={<MailboxDetails mailboxes={mailboxes}/>} />
+        </Routes>
+      </div>
+    </Router>
+  )
 }
 
 export default App
